@@ -36,9 +36,10 @@ Saya memulai pengerjaan tugas ini secara bertahap sebagai berikut:
 ---
 
 ### 2. Bagan Alur Request dan Response Django
-<img alt="image" src="C:\Users\Lenovo\OneDrive\Documents\Yafi Oktober 2024\Documents\UI\SMT 3\PBP\Tugas 2\GoalHub\image.png" />
+<img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/c5979a5905171b259b430b7b48163b211326e890/image.png" />
 
 sumber: Materi Perkuliahan PBP 02 - Introduction to the Internet and Web Framework (https://scele.cs.ui.ac.id/pluginfile.php/268491/mod_resource/content/1/02%20-%20Introduction%20to%20the%20Internet%20and%20Web%20Framework.pdf)
+
 **Penjelasan:**
 
 * `urls.py` menerima request dari client, kemudian mencocokkan URL yang diakses di browser dengan daftar path yang ada.
