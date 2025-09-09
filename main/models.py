@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 
-class News(models.Model):
+class Product(models.Model):
     CATEGORY_CHOICES = [
         ('sepatu bola', 'Sepatu Bola'),
         ('jersey', 'Jersey'),
@@ -23,9 +23,6 @@ class News(models.Model):
         return self.name
     
     @property
-    def is_news_hot(self):
-        return self.news_views > 20
-        
     def increment_stok(self, jumlah):
         self.stok += jumlah
         self.save()
