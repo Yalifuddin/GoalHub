@@ -38,16 +38,17 @@ Saya memulai pengerjaan tugas ini secara bertahap sebagai berikut:
 ### 2. Bagan Alur Request dan Response Django
 <img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/c5979a5905171b259b430b7b48163b211326e890/image.png" />
 
-sumber: Materi Perkuliahan PBP 02 - Introduction to the Internet and Web Framework (https://scele.cs.ui.ac.id/pluginfile.php/268491/mod_resource/content/1/02%20-%20Introduction%20to%20the%20Internet%20and%20Web%20Framework.pdf)
+sumber: Materi Perkuliahan PBP 03 - MTV Django Architecture (https://scele.cs.ui.ac.id/pluginfile.php/269605/mod_resource/content/1/03%20-%20MTV%20Django%20Architecture.pdf)
 
 **Penjelasan:**
 
-* `urls.py` menerima request dari client, kemudian mencocokkan URL yang diakses di browser dengan daftar path yang ada.
-* Jika cocok, request diarahkan ke fungsi di `views.py`.
-* `views.py` berisi logika utama dari aplikasi, juga sebagai jembatan antara URLS dan templates.
-* Jika `views.py` membutuhkan data, maka akan memanggil `models.py`.
-* Jika `views.py` membutuhkan tampilan, maka akan mme-render file HTML yang ada di templates.
-* Browser akhirnya menerima `HTTP response` berupa halaman web.
+* `urls.py` Berfungsi sebagai pemetaan URL. Ketika ada HTTP request dari browser, Django akan mencocokkan URL yang diminta dengan daftar path di urls.py. Jika cocok, request diteruskan ke fungsi yang sesuai di `views.py`.
+* `views.py` berisi logika utama dari aplikasi, juga sebagai jembatan antara URLS dan templates. Fungsi view menerima request dari `urls.py`, memprosesnya, dan bisa Mengambil/menyimpan data ke database melalui `models.py`, Mengolah data dan meneruskannya ke template (berkas HTML), serta Mengembalikan HTTP response ke browser
+* `models.py` Berisi definisi struktur data (model database). View akan membaca atau menulis data ke database melalui model ini.
+* Template (HTML) berisi tampilan halaman web. View akan me-render template ini, mengisi data yang diperlukan, lalu mengirim hasil akhirnya sebagai HTTP response ke browser.
+
+**Kesimpulan:**
+`urls.py` mengarahkan request ke `views.py`, `views.py` bisa berinteraksi dengan `models.py` untuk data, lalu me-render template HTML dan mengirim hasilnya ke user.
 
 ---
 
