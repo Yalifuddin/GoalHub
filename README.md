@@ -34,7 +34,7 @@ Saya memulai pengerjaan tugas ini secara bertahap sebagai berikut:
 ---
 
 ### 2. Bagan Alur Request dan Response Django
-<img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/c5979a5905171b259b430b7b48163b211326e890/image.png" />
+<img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/master/img/image.png" />
 
 sumber: Materi Perkuliahan PBP 03 - MTV Django Architecture (https://scele.cs.ui.ac.id/pluginfile.php/269605/mod_resource/content/1/03%20-%20MTV%20Django%20Architecture.pdf)
 
@@ -124,16 +124,16 @@ Asdos sudah responsif dan sangat membantu ketika saya mengalami kesulitan di tut
 
 ### Screenshot dari hasil akses URL pada Postman
 1. XML
-https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(164).png
+<img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/master/img/Screenshot%20(164).png" />
 
 2. JSON
-https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(165).png
+<img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/master/img/Screenshot%20(165).png" />
 
 3. XML by ID
-https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(167).png
+<img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/master/img/Screenshot%20(167).png" />
 
 4. JSON by ID
-https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(166).png
+<img alt="image" src="https://github.com/Yalifuddin/GoalHub/blob/master/img/Screenshot%20(166).png" />
 
 ---
 
