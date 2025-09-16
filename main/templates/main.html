@@ -1,3 +1,29 @@
 <h1>{{nama_projek}}</h1>
 <h2>Selamat Datang di toko olahraga terbaik se jagad raya</h2>
 <h3>Website ini dibuat oleh {{ name }} - {{ npm }} kelas {{ class }}</h3>
+
+<a href="{% url 'main:create_product' %}">
+    <button>+ Add Product</button>
+</a>
+
+<hr>
+
+{% if not product_list %}
+<p>Belum ada data produk di GoalHub. </p>
+{% else %}
+
+{% for product in product_list %}
+        <div>
+            {% if product.thumbnail %}
+                <img src="{{ product.thumbnail }}" alt="Thumbnail" style="max-width: 200px; max-height: 200px;">
+            {% endif %}
+
+            <h3>{{ product.name }}</h3> 
+            <h4>Rp. {{ product.price }}</h4>
+            <a href="{% url 'main:show_product' product.id %}"><button>Details</button></a>
+            <hr>
+
+        </div>
+    {% endfor %}
+
+{% endif %}

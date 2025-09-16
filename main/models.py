@@ -15,7 +15,7 @@ class Product(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     thumbnail = models.URLField(blank=True, null=True)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='update')
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='sepatu bola')
     is_featured = models.BooleanField(default=False)
     stok = models.IntegerField(default=0)
     

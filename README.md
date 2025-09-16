@@ -1,10 +1,8 @@
-# Tugas 2: Implementasi Model-View-Template (MVT) pada Django
-
 # GoalHub
 
 Link: [https://yafi-alifuddin-goalhub.pbp.cs.ui.ac.id/](https://yafi-alifuddin-goalhub.pbp.cs.ui.ac.id/)
 
----
+# Tugas 2: Implementasi Model-View-Template (MVT) pada Django
 
 ## Jawaban dari Pertanyaan Tugas
 
@@ -91,6 +89,51 @@ Menurut saya, Django dipilih karena:
 ### 6. Feedback untuk Asisten Dosen
 
 Menurut saya, tutorial 1 sudah sangat bagus. Panduannya jelas dan mudah dimengerti, setiap bagian dijelaskan dengan baik sehingga saya bisa memahami apa yang dilakukan.
+
+
+# Tugas 3: Implementasi Form dan Data Delivery pada Django
+
+### 1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+
+Data delivery diperlukan dalam pengimplementasian sebuah platform karena menjadi mekanisme utama pertukaran informasi antara klien dan server, memungkinkan aplikasi menampilkan dan memperbarui data secara dinamis. Dengan data delivery, data dapat dikirim dan diterima secara efisien, aman, serta dapat dipahami oleh berbagai sistem yang saling terintegrasi, misalnya saat berkomunikasi dengan API eksternal. Selain itu, juga membuat pengguna memperoleh pengalaman interaktif tanpa perlu memuat ulang halaman penuh, sekaligus menghemat bandwidth dan meningkatkan skalabilitas. Tanpa data delivery, platform tidak dapat menyediakan informasi real-time, integrasi layanan pihak ketiga, maupun kontrol akses yang memadai bagi penggunanya.
+
+### 2.  Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+
+Menurut saya, JSON lebih baik dari XML karena formatnya lebih ringkas, mudah dibaca, dan langsung cocok dengan struktur objek pada bahasa pemrograman populer seperti JavaScript, Python, atau Java. JSON memiliki struktur sederhana berbentuk key-value pairs, mirip dengan dictionary di Python. Hal ini membuat JSON lebih mudah dibaca dan dipahami oleh manusia, sekaligus lebih mudah diolah oleh mesin. Sebaliknya, XML punya aturan penulisan yang lebih panjang dan berulang karena setiap elemen harus punya tag pembuka dan penutup, sehingga ukuran datanya lebih besar dan proses membacanya butuh waktu lebih lama. Meskipun XML masih dipakai ketika dibutuhkan fitur khusus seperti skema yang ketat atau dokumen dengan struktur kompleks. JSON lebih populer karena efisiensi, kemudahan integrasi dengan API, serta dukungan luas di ekosistem web modern.
+
+### 3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+
+Dalam Django, method is_valid() digunakan untuk memeriksa apakah data yang dikirim melalui form sesuai dengan aturan validasi yang telah didefinisikan pada form tersebut. Ketika pengguna mengirimkan form, Django akan menampung data itu di objek form. Pemanggilan form.is_valid() akan menjalankan serangkaian pengecekan otomatis: memastikan setiap field terisi dengan benar (misal tipe data, panjang teks, dsb.), menjalankan cleaning atau validasi tambahan yang kita tulis sendiri, dan menandai hasilnya dengan nilai True jika semua data lolos, atau False jika ada kesalahan. Kita membutuhkan method ini karena hanya data yang sudah dipastikan valid yang aman untuk diproses lebih lanjut, seperti disimpan ke database atau dikirim ke layanan lain. Tanpa method is_valid(), kita berisiko menyimpan data yang salah format, kosong, atau berpotensi menimbulkan bug dan masalah keamanan pada aplikasi Django.
+
+### 4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+
+csrf_token adalah mekanisme pelindung dari serangan Cross-Site Request Forgery (CSRF). Token ini berupa nilai acak yang unik untuk setiap sesi pengguna dan disisipkan ke dalam setiap form HTML yang mengirim data dengan metode POST (atau request yang mengubah data). Saat form dikirim, server akan memeriksa apakah token yang diterima sama dengan token yang sebelumnya diberikan ke pengguna tersebut. Jika kita tidak menambahkan csrf_token, server tidak bisa memastikan bahwa permintaan benar-benar berasal dari pengguna yang sah. Akibatnya, penyerang bisa memanfaatkan celah ini dengan membuat website atau link palsu yang secara diam-diam mengirim permintaan ke server atas nama korban yang sedang login. Jadi, csrf_token mencegah serangan di mana penyerang menipu browser korban untuk menjalankan aksi yang merugikan tanpa sepengetahuan korban, menjaga integritas dan keamanan data pada aplikasi.
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+Berikut langkah-langkah yang saya lakukan:
+1. Membuat direktori templates baru yang berisi base.html, kemudian menambahkannya ke settings.py supaya terdeteksi sebagai template
+2. Membuat forms.py di dalam direktori main berisi ProductForm dengan field sesuai yang dibutuhkan ketika menambahkan produk
+3. Menambahkan fungsi di views.py untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML by ID, dan JSON by ID. Juga dengan fungsi untuk menambahkan dan menampilkan produk
+4. Melakukan konfigurasi di urls.py di dalam direktori main dengan membuat routing URL untuk masing-masing views yang telah ditambahkan 
+5. Menambahkan isi main.html di dalam direktori main/templates dengan menambahkan button add product yang akan redirect ke halaman form untuk menambahkan product, menambahkan button detail untuk melihat detail penjelasan produk, dan meyesuaikan tampilan di halaman utama
+6. Membuat berkas baru di dalam direktori main/templates, yaitu create_product.html sebagai halaman untuk menambahkan produk baru dan product_details.html untuk menampilkan penjelasan lengkap produk 
+
+### 6. Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
+Asdos sudah responsif dan sangat membantu ketika saya mengalami kesulitan di tutorial 2
+
+### Screenshot dari hasil akses URL pada Postman
+1. XML
+https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(164).png
+
+2. JSON
+https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(165).png
+
+3. XML by ID
+https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(167).png
+
+4. JSON by ID
+https://github.com/Yalifuddin/GoalHub/blob/master/Screenshot%20(166).png
 
 ---
 
