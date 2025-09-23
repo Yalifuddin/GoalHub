@@ -1,12 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>{{nama_projek}}</h1>
-<h2>Selamat Datang di toko olahraga terbaik se jagad raya</h2>
+<h2>Halo {{username}}, Selamat Datang di toko olahraga terbaik se jagad raya</h2>
 <h3>Website ini dibuat oleh {{ name }} - {{ npm }} kelas {{ class }}</h3>
 
 <a href="{% url 'main:create_product' %}">
     <button>+ Add Product</button>
 </a>
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+<h5>Sesi terakhir login: {{ last_login }}</h5>
 
 <hr>
+
+<a href="?filter=all">
+    <button type="button">All Product</button>
+</a>
+<a href="?filter=my">
+    <button type="button">My Product</button>
+</a>
 
 {% if not product_list %}
 <p>Belum ada data produk di GoalHub. </p>
@@ -14,6 +27,7 @@
 
 {% for product in product_list %}
         <div>
+            <br>
             {% if product.thumbnail %}
                 <img src="{{ product.thumbnail }}" alt="Thumbnail" style="max-width: 200px; max-height: 200px;">
             {% endif %}
@@ -27,3 +41,4 @@
     {% endfor %}
 
 {% endif %}
+{% endblock content %}
