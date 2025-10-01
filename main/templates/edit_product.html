@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block meta %}
-<title>Create Product - GoalHub</title>
+<title>Edit Products - GoalHub</title>
 {% endblock meta %}
 
 {% block content %}
@@ -18,8 +20,8 @@
     <!-- Form -->
     <div class="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 form-style shadow-sm">
       <div class="mb-8">
-        <h1 class="text-2xl font-bold text-gray-900 mb-2">Create New Products</h1>
-        <p class="text-gray-600">Share your football Products and stories with the community</p>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Edit Products</h1>
+        <p class="text-gray-600">Update your football Products and stories</p>
       </div>
       
       <form method="POST" class="space-y-6">
@@ -48,10 +50,10 @@
              class="order-2 sm:order-1 px-6 py-3 border border-red-600 text-red-600 rounded-md font-medium hover:bg-red-600 hover:text-white transition-colors text-center">
             Cancel
           </a>
-          <!-- Publish -->
+          <!-- Update -->
           <button type="submit" 
                   class="order-1 sm:order-2 flex-1 bg-[#111133] text-white px-6 py-3 rounded-md font-medium hover:bg-[#0e0e2a] transition-colors">
-            Publish Products
+            Update Products
           </button>
         </div>
       </form>

@@ -1,0 +1,137 @@
+<!-- Navbar -->
+<nav class="fixed top-0 left-0 w-full bg-[#111133] text-white shadow-md z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <!-- Left: Brand -->
+      <div class="flex items-center">
+        <h1 class="text-xl font-bold tracking-wide">GoalHub</h1>
+      </div>
+
+      <!-- Center: Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="/" class="text-sm font-medium hover:text-blue-400 transition-colors">
+          Home
+        </a>
+        <a href="{% url 'main:create_product' %}" class="text-sm font-medium hover:text-blue-400 transition-colors">
+          Create Product
+        </a>
+
+        <!-- Dropdown Products -->
+        <div class="relative group">
+          <button class="flex items-center text-sm font-medium hover:text-blue-400 transition-colors focus:outline-none">
+            Products
+            <!-- Segitiga ke bawah -->
+            <svg class="w-3 h-3 ml-1 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M5.5 7l4.5 5 4.5-5H5.5z"/>
+            </svg>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div
+            class="absolute left-0 mt-2 w-40 bg-white text-gray-800 rounded-md shadow-lg 
+                   opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                   transform scale-95 group-hover:scale-100 transition-all duration-300 ease-in-out delay-150 z-50"
+          >
+            <a href="?" 
+               class="block px-4 py-2 text-sm hover:bg-gray-100 {% if request.GET.filter == 'all' or not request.GET.filter %}font-semibold text-blue-600{% endif %}">
+              All Products
+            </a>
+            <a href="?filter=my" 
+               class="block px-4 py-2 text-sm hover:bg-gray-100 {% if request.GET.filter == 'my' %}font-semibold text-blue-600{% endif %}">
+              My Products
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: User Info + Logout -->
+      <div class="hidden md:flex items-center space-x-6">
+        {% if user.is_authenticated %}
+          <div class="text-right">
+            <div class="text-sm font-semibold">{{ name|default:user.username }}</div>
+            <div class="text-xs text-gray-300">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
+          </div>
+          <a href="{% url 'main:logout' %}" class="text-red-400 hover:text-red-500 font-medium transition-colors">
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="text-sm font-medium hover:text-blue-400 transition-colors">
+            Login
+          </a>
+          <a href="{% url 'main:register' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-medium transition-colors">
+            Register
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button p-2 text-gray-300 hover:text-white transition-colors">
+          <span class="sr-only">Open menu</span>
+          <div class="w-6 h-6 flex flex-col justify-center items-center">
+            <span class="bg-current block h-0.5 w-6 rounded-sm"></span>
+            <span class="bg-current block h-0.5 w-6 rounded-sm my-1"></span>
+            <span class="bg-current block h-0.5 w-6 rounded-sm"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu hidden md:hidden bg-[#111133] text-white border-t border-gray-700">
+    <div class="px-6 py-4 space-y-4">
+      <!-- Navigation -->
+      <div class="space-y-1">
+        <a href="/" class="block text-sm font-medium hover:text-blue-400 transition-colors">
+          Home
+        </a>
+        <a href="{% url 'main:create_product' %}" class="block text-sm font-medium hover:text-blue-400 transition-colors">
+          Create Product
+        </a>
+        <!-- Dropdown Products (mobile version) -->
+        <div>
+          <p class="text-sm font-medium text-gray-300">Products</p>
+          <a href="?" class="block text-sm px-2 py-1 hover:text-blue-400 {% if request.GET.filter == 'all' or not request.GET.filter %}font-semibold text-blue-400{% endif %}">
+            All Products
+          </a>
+          <a href="?filter=my" class="block text-sm px-2 py-1 hover:text-blue-400 {% if request.GET.filter == 'my' %}font-semibold text-blue-400{% endif %}">
+            My Products
+          </a>
+        </div>
+      </div>
+
+      <!-- User Info -->
+      <div class="border-t border-gray-700 pt-4">
+        {% if user.is_authenticated %}
+          <div class="mb-4">
+            <div class="font-medium">{{ name|default:user.username }}</div>
+            <div class="text-xs text-gray-300">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
+          </div>
+          <a href="{% url 'main:logout' %}" class="block text-red-400 hover:text-red-500 font-medium">
+            Logout
+          </a>
+        {% else %}
+          <div class="space-y-3">
+            <a href="{% url 'main:login' %}" class="block text-sm font-medium hover:text-blue-400 transition-colors">
+              Login
+            </a>
+            <a href="{% url 'main:register' %}" class="block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded text-center transition-colors">
+              Register
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.querySelector("button.mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  </script>
+</nav>

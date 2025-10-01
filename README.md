@@ -215,6 +215,139 @@ Cara Django menangani hal tersebut:
 
 ---
 
+# Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS
+
+## 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+Dalam CSS, ketika ada beberapa selector yang menargetkan elemen HTML yang sama, maka browser akan menentukan prioritas (specificity). Urutannya seperti ini:
+
+1. **Inline style** → ditulis langsung di elemen HTML dengan atribut `style="..."`.
+2. **ID selector** → `#id`.
+3. **Class, attribute, dan pseudo-class selector** → `.class`, `[type="text"]`, `:hover`.
+4. **Element (tag) dan pseudo-element selector** → `div`, `p`, `h1`, `::before`.
+5. **Universal selector** → `*` dan inheritance (gaya yang diwariskan dari parent).
+
+Aturan tambahan:
+- `!important` akan mengalahkan semua aturan di atas (sebaiknya jarang dipakai karena menyulitkan maintenance).
+- Jika spesifisitas sama, maka aturan yang ditulis **terakhir** (paling bawah) dalam file CSS yang dipakai.
+
+
+## 2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+
+**Responsive design** penting karena pengguna mengakses aplikasi web dari berbagai perangkat dengan ukuran layar berbeda (desktop, laptop, tablet, hingga smartphone).  
+
+Tanpa responsive design:
+- Tampilan web bisa berantakan.
+- Teks sulit dibaca.
+- Tombol terlalu kecil ketika diakses melalui perangkat mobile.  
+
+Hal ini tentu mengurangi user experience dan bisa membuat pengguna enggan memakai aplikasi tersebut.  
+
+Dengan responsive design:
+- Tampilan aplikasi web menyesuaikan otomatis dengan ukuran layar perangkat.
+- Teknik umum: **media queries** di CSS untuk styling berbeda berdasarkan lebar layar.
+- Layout modern seperti **flexbox** dan **CSS grid** memudahkan pengaturan komponen agar tetap rapi di berbagai resolusi.
+
+**Contoh aplikasi yang sudah menerapkan responsive design:**
+- Shopee atau Tokopedia: tampilan menyesuaikan di desktop dan mobile, produk tetap mudah dicari, tombol tetap nyaman diklik.
+
+**Contoh aplikasi yang belum menerapkan responsive design:**
+- Beberapa website lama instansi pemerintah: biasanya fixed-width, di HP harus diperbesar atau digeser horizontal, tampilan kurang profesional, pengguna jadi kesulitan.
+
+Responsive design bukan hanya soal estetika, tetapi juga meningkatkan **aksesibilitas** dan **kenyamanan penggunaan** di berbagai perangkat.
+
+
+## 3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+Dalam **CSS Box Model**, margin, border, dan padding menentukan bagaimana sebuah elemen HTML ditampilkan.  
+
+### 1. Margin
+- Ruang di luar elemen.
+- Memberi jarak antara elemen dengan elemen lain.
+- Transparan.
+- Contoh:
+  ```css
+  .box {
+    margin: 20px; /* memberi jarak 20px dari elemen lain */
+  }
+
+
+### 2. Border
+- Garis tepian yang membungkus konten dan padding-nya.
+- Bisa diatur ketebalan, jenis garis (solid, dashed, dotted), serta warna.
+- Contoh implementasi:
+    ```css
+    .box {
+    border: 2px solid black; /* border hitam, tebal 2px */
+    }
+
+
+### 3. Padding
+- Mengosongkan area di sekitar konten (transparan)
+- Biasanya digunakan agar isi elemen tidak terlalu mepet dengan border.
+- Contoh implementasi:
+    ```css
+    .box {
+    padding: 15px; /* memberi jarak 15px antara isi dan border */
+    }
+
+
+Urutan dari luar ke dalam:
+Margin → Border → Padding → Content
+
+Contoh lengkap implementasi:
+    ```css
+    .box {
+        margin: 30px;             /* jarak antar elemen */
+        border: 3px dashed blue;  /* border biru putus-putus */
+        padding: 20px;            /* jarak isi dengan border */
+    }
+
+Dengan begitu, margin mengatur jarak antar elemen, border membungkus elemen, dan padding memberi ruang antara isi dengan batas elemen.
+
+## 4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+#### Flexbox (Flexible Box Layout)
+- Digunakan untuk mengatur elemen secara **satu dimensi** (horizontal atau vertikal).
+- Elemen di dalam container fleksibel dan bisa menyesuaikan ukuran layar.
+- Cocok untuk membuat navbar, sidebar, atau alignment item dalam satu baris/kolom.
+- Contoh implementasi:
+  ```css
+  .container {
+    display: flex;
+    justify-content: center;  /* mengatur posisi horizontal */
+    align-items: center;      /* mengatur posisi vertikal */
+  }
+
+
+### Grid Layout
+- Grid digunakan untuk mengatur elemen secara dua dimensi (baris dan kolom sekaligus).
+- Memberikan kontrol penuh terhadap tata letak halaman yang kompleks.
+- Cocok untuk membuat layout halaman utama, seperti galeri gambar atau dashboard.
+- Contoh:
+    ```css
+    .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 kolom sama besar */
+    gap: 10px; /* jarak antar item */
+    }
+
+Singkatnya:
+Flexbox: fokus satu dimensi (row atau column).
+Grid: fokus dua dimensi (row dan column).
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+1. Membuat fungsi edit dan delete product di views.py dan membuat path nya di urls.py
+2. Membuat direktori static dan membuat berkas global.css untuk styling nantinya
+3. Membuat file html untuk edit product dan melakukan kostumisasi, serta menambahkan button delete ke main.html
+4. Melakukan kustomisasi pada halaman login dan register.
+5. Membuat navbar yang responsive untuk desktop dan mobile.
+6. Membuat card_product.html untuk merapikan tampilan produk di main nanti.
+7. Melakukan kostumisasi pada main.html untuk menampilkan product menggunakan card yang telah dibuat.
+8. Melakukan kostumisasi pada halaman details, edit, dan create product. 
+
+---
+
 Sekian, Terimakasih
 
 Yafi Alifuddin
