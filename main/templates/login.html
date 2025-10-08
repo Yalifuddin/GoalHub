@@ -38,7 +38,7 @@
         </div>
       {% endif %}
 
-      <form method="POST" action="" class="space-y-6">
+      <form method="POST" action="" class="space-y-6" id="loginForm">
         {% csrf_token %}
         
         <div>
@@ -102,4 +102,58 @@
     </div>
   </div>
 </div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    submitLogin();
+});
+
+async function submitLogin() {
+    const formData = new FormData(document.getElementById("loginForm"));
+    const data = Object.fromEntries(formData);
+
+    try {
+        const response = await fetch("{% url 'main:login' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            showToast('Login successful!', '', 'success');
+            window.location.href = "{% url 'main:show_main' %}";
+        } else {
+            showToast(result.message || 'Login failed.', '', 'error');
+        }
+    } catch (error) {
+        console.error('Error logging in:', error);
+        showToast('An error occurred during login.', '', 'error');
+    }
+}
+</script>
+
+<script type="application/json" id="messages-data">
+[
+{% for message in messages %}
+{"message": "{{ message|escapejs }}", "tags": "{{ message.tags|default:'success'|escapejs }}"}{% if not forloop.last %},{% endif %}
+{% endfor %}
+]
+</script>
+
+<script>
+setTimeout(function() {
+const messagesData = document.getElementById('messages-data');
+if (messagesData && messagesData.textContent.trim()) {
+const messages = JSON.parse(messagesData.textContent);
+messages.forEach(msg => showToast(msg.message, '', msg.tags));
+}
+}, 100);
+</script>
+
 {% endblock content %}
