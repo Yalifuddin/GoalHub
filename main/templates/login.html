@@ -1,13 +1,13 @@
-{% extends 'base.html' %}
-
-{% block meta %}
+{% extends 'base.html' %} {% block meta %}
 <title>Login - GoalHub</title>
-{% endblock meta %}
-
-{% block content %}
-<div class="bg-gray-50 w-full min-h-screen flex items-center justify-center p-8">
+{% endblock meta %} {% block content %}
+<div
+  class="bg-gray-50 w-full min-h-screen flex items-center justify-center p-8"
+>
   <div class="max-w-md w-full">
-    <div class="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 form-style">
+    <div
+      class="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 form-style"
+    >
       <div class="text-center mb-8">
         <h1 class="text-2xl font-bold text-gray-900 mb-2">Sign In</h1>
         <p class="text-gray-600">Welcome back to GoalHub</p>
@@ -15,86 +15,91 @@
 
       <!-- Form Errors Display -->
       {% if form.non_field_errors %}
-        <div class="mb-6">
-          {% for error in form.non_field_errors %}
-            <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700">
-              {{ error }}
-            </div>
-          {% endfor %}
+      <div class="mb-6">
+        {% for error in form.non_field_errors %}
+        <div
+          class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700"
+        >
+          {{ error }}
         </div>
-      {% endif %}
-
-      {% if form.errors %}
-        <div class="mb-6">
-          {% for field, errors in form.errors.items %}
-            {% if field != '__all__' %}
-              {% for error in errors %}
-                <div class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700 mb-2">
-                  <strong>{{ field|title }}:</strong> {{ error }}
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
+        {% endfor %}
+      </div>
+      {% endif %} {% if form.errors %}
+      <div class="mb-6">
+        {% for field, errors in form.errors.items %} {% if field != '__all__' %}
+        {% for error in errors %}
+        <div
+          class="px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700 mb-2"
+        >
+          <strong>{{ field|title }}:</strong> {{ error }}
         </div>
+        {% endfor %} {% endif %} {% endfor %}
+      </div>
       {% endif %}
 
       <form method="POST" action="" class="space-y-6" id="loginForm">
         {% csrf_token %}
-        
+
         <div>
-          <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-          <input 
-            id="username" 
-            name="username" 
-            type="text" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600 transition-colors" 
-            placeholder="Enter your username">
+          <label
+            for="username"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Username</label
+          >
+          <input
+            id="username"
+            name="username"
+            type="text"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600 transition-colors"
+            placeholder="Enter your username"
+          />
         </div>
 
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-          <input 
-            id="password" 
-            name="password" 
-            type="password" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600 transition-colors" 
-            placeholder="Enter your password">
+          <label
+            for="password"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Password</label
+          >
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600 transition-colors"
+            placeholder="Enter your password"
+          />
         </div>
 
-        <button 
-          type="submit" 
-          class="w-full bg-blue-800 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 transition-colors">
+        <button
+          type="submit"
+          class="w-full bg-blue-800 text-white font-medium py-3 px-4 rounded-md hover:bg-blue-700 transition-colors"
+        >
           Sign In
         </button>
       </form>
 
       <!-- Messages Display -->
       {% if messages %}
-        <div class="mt-6">
-          {% for message in messages %}
-            <div 
-              class="
-                px-4 py-3 rounded-md text-sm border
-                {% if message.tags == 'success' %}
-                  bg-blue-50 border-blue-200 text-blue-700
-                {% elif message.tags == 'error' %}
-                  bg-red-50 border-red-200 text-red-700
-                {% else %}
-                  bg-gray-50 border-gray-200 text-gray-700
-                {% endif %}
-              ">
-              {{ message }}
-            </div>
-          {% endfor %}
+      <div class="mt-6">
+        {% for message in messages %}
+        <div
+          class="px-4 py-3 rounded-md text-sm border {% if message.tags == 'success' %} bg-blue-50 border-blue-200 text-blue-700 {% elif message.tags == 'error' %} bg-red-50 border-red-200 text-red-700 {% else %} bg-gray-50 border-gray-200 text-gray-700 {% endif %}"
+        >
+          {{ message }}
         </div>
+        {% endfor %}
+      </div>
       {% endif %}
 
       <div class="mt-6 text-center pt-6 border-t border-gray-200">
         <p class="text-gray-500 text-sm">
-          Don't have an account? 
-          <a href="{% url 'main:register' %}" class="text-blue-700 hover:text-blue-800 font-medium">
+          Don't have an account?
+          <a
+            href="{% url 'main:register' %}"
+            class="text-blue-700 hover:text-blue-800 font-medium"
+          >
             Register Now
           </a>
         </p>
@@ -104,56 +109,101 @@
 </div>
 
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    submitLogin();
-});
+  function getCookie(name) {
+    const match = document.cookie.match(
+      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
+    );
+    return match ? decodeURIComponent(match[2]) : null;
+  }
 
-async function submitLogin() {
-    const formData = new FormData(document.getElementById("loginForm"));
-    const data = Object.fromEntries(formData);
+  const loginForm = document.getElementById("loginForm");
+  const loginButton =
+    loginForm && loginForm.querySelector('button[type="submit"]');
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      submitLogin();
+    });
+  }
+
+  async function submitLogin() {
+    const form = document.getElementById("loginForm");
+    const btn = loginButton;
+    if (btn) btn.disabled = true;
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     try {
-        const response = await fetch("{% url 'main:login' %}", {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+      const response = await fetch("{% url 'main:login' %}", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "X-CSRFToken":
+            getCookie("csrftoken") ||
+            (document.querySelector("[name=csrfmiddlewaretoken]") || {}).value,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-        const result = await response.json();
+      if (response.status === 403) {
+        showToast(
+          "CSRF token invalid atau cookie tidak dikirim. Cek konfigurasi cookie.",
+          "",
+          "error"
+        );
+        return;
+      }
 
-        if (response.ok) {
-            showToast('Login successful!', '', 'success');
-            window.location.href = "{% url 'main:show_main' %}";
-        } else {
-            showToast(result.message || 'Login failed.', '', 'error');
+      const result = await response.json();
+      console.log("login result", result);
+
+      if (response.ok && result.success) {
+        try {
+          showToast("Login successful!", "", "success");
+        } catch (e) {
+          console.error("showToast error", e);
         }
+        // fallback redirect even if showToast fails
+        if (result.redirect) {
+          window.location.href = result.redirect;
+        } else {
+          window.location.href = "{% url 'main:show_main' %}";
+        }
+      } else {
+        try {
+          showToast(result.message || "Login failed.", "", "error");
+        } catch (e) {
+          console.error("showToast error", e);
+        }
+      }
     } catch (error) {
-        console.error('Error logging in:', error);
-        showToast('An error occurred during login.', '', 'error');
+      console.error("Error logging in:", error);
+      showToast("An error occurred during login.", "", "error");
+    } finally {
+      if (btn) btn.disabled = false;
     }
-}
+  }
 </script>
 
 <script type="application/json" id="messages-data">
-[
-{% for message in messages %}
-{"message": "{{ message|escapejs }}", "tags": "{{ message.tags|default:'success'|escapejs }}"}{% if not forloop.last %},{% endif %}
-{% endfor %}
-]
+  [
+  {% for message in messages %}
+  {"message": "{{ message|escapejs }}", "tags": "{{ message.tags|default:'success'|escapejs }}"}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ]
 </script>
 
 <script>
-setTimeout(function() {
-const messagesData = document.getElementById('messages-data');
-if (messagesData && messagesData.textContent.trim()) {
-const messages = JSON.parse(messagesData.textContent);
-messages.forEach(msg => showToast(msg.message, '', msg.tags));
-}
-}, 100);
+  setTimeout(function () {
+    const messagesData = document.getElementById("messages-data");
+    if (messagesData && messagesData.textContent.trim()) {
+      const messages = JSON.parse(messagesData.textContent);
+      messages.forEach((msg) => showToast(msg.message, "", msg.tags));
+    }
+  }, 100);
 </script>
 
 {% endblock content %}

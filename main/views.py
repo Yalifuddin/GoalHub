@@ -12,6 +12,9 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidde
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+import requests
+from django.utils.html import strip_tags
+from django.http import JsonResponse
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -153,26 +156,35 @@ def register(request):
 
 def login_user(request):
     if request.method == 'POST':
+        # Support JSON (AJAX) and normal form submissions
         if request.content_type == 'application/json':
-            import json
-            data = json.loads(request.body)
-            form = AuthenticationForm(data=data)
-        else:
-            form = AuthenticationForm(data=request.POST)
+            try:
+                data = json.loads(request.body)
+            except Exception:
+                return JsonResponse({'success': False, 'message': 'Invalid JSON'}, status=400)
 
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            if request.POST.get('ajax') or request.content_type == 'application/json':
-                response_data = {'success': True, 'message': 'Login successful!', 'redirect': reverse("main:show_main")}
-                return JsonResponse(response_data)
-            response = HttpResponseRedirect(reverse("main:show_main"))
-            return response
+            username = data.get('username')
+            password = data.get('password')
+
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return JsonResponse({'success': True, 'message': 'Login successful!', 'redirect': reverse('main:show_main')})
+            else:
+                return JsonResponse({'success': False, 'message': 'Username atau password salah.'}, status=200)
         else:
-            if request.POST.get('ajax') or request.content_type == 'application/json':
-                return JsonResponse({'success': False, 'errors': form.errors})
-    else:
-        form = AuthenticationForm(request)
+            # Use AuthenticationForm for normal POST
+            form = AuthenticationForm(request=request, data=request.POST)
+            if form.is_valid():
+                user = form.get_user()
+                login(request, user)
+                return HttpResponseRedirect(reverse('main:show_main'))
+            # form invalid -> re-render with errors
+            context = {'form': form}
+            return render(request, 'login.html', context)
+
+    # GET request -> render login form
+    form = AuthenticationForm()
     context = {'form': form}
     return render(request, 'login.html', context)
 
@@ -266,3 +278,46 @@ def delete_product_entry_ajax(request, id):
         return HttpResponse(b"FORBIDDEN", status=403)
     product.delete()
     return HttpResponse(b"DELETED", status=200)
+
+def proxy_image(request):
+    image_url = request.GET.get('url')
+    if not image_url:
+        return HttpResponse('No URL provided', status=400)
+    
+    try:
+        # Fetch image from external source
+        response = requests.get(image_url, timeout=10)
+        response.raise_for_status()
+        
+        # Return the image with proper content type
+        return HttpResponse(
+            response.content,
+            content_type=response.headers.get('Content-Type', 'image/jpeg')
+        )
+    except requests.RequestException as e:
+        return HttpResponse(f'Error fetching image: {str(e)}', status=500)
+    
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        title = strip_tags(data.get("title", ""))  # Strip HTML tags
+        content = strip_tags(data.get("content", ""))  # Strip HTML tags
+        category = data.get("category", "")
+        thumbnail = data.get("thumbnail", "")
+        is_featured = data.get("is_featured", False)
+        user = request.user
+        
+        new_product = Product(
+            title=title, 
+            content=content,
+            category=category,
+            thumbnail=thumbnail,
+            is_featured=is_featured,
+            user=user
+        )
+        new_product.save()
+        
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
