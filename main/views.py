@@ -95,8 +95,13 @@ def show_xml_by_id(request, product_id):
     except Product.DoesNotExist:
         return HttpResponse(status=404)
 
+@login_required(login_url='/login')
 def show_json(request):
-    product_list = Product.objects.all()
+    filter_type = request.GET.get("filter", "all")
+    if filter_type == "my":
+        product_list = Product.objects.filter(user=request.user)
+    else:
+        product_list = Product.objects.all()
     data = [
         {
             'id': str(product.id),
@@ -301,19 +306,23 @@ def proxy_image(request):
 def create_product_flutter(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        title = strip_tags(data.get("title", ""))  # Strip HTML tags
-        content = strip_tags(data.get("content", ""))  # Strip HTML tags
+        name = strip_tags(data.get("name", ""))  # Strip HTML tags
+        description = strip_tags(data.get("description", ""))  # Strip HTML tags
+        price = data.get("price")
+        stok = data.get("stok", 0)
         category = data.get("category", "")
         thumbnail = data.get("thumbnail", "")
         is_featured = data.get("is_featured", False)
         user = request.user
         
         new_product = Product(
-            title=title, 
-            content=content,
+            name=name, 
+            description=description,
             category=category,
             thumbnail=thumbnail,
             is_featured=is_featured,
+            price=price,
+            stok=stok,
             user=user
         )
         new_product.save()
@@ -321,3 +330,4 @@ def create_product_flutter(request):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
+    
